@@ -8,9 +8,13 @@
 <body>
       <ul>
 
+  <li><a href="index.html" target="_blank">Homepage</a></li>
   <li><a href = "login.html"> Login </a></li>
   <li><a href = "registrati.html"> Registrati </a></li>
-  <li><a href = "Catalogo.php"> Catalogo </a></li>
+  <li><a href = "logout.php"> Logout </a></li>
+  <li><a href = "cart_update.php"> Carrello </a></li>
+
+
 
    <form action= "search.php" method="get">
    <input type='text' placeholder='Ricerca' name='search'> <br>
@@ -40,12 +44,16 @@
       }
 
 
-
       include('DBhelper.php');
 
+      session_start();
+      echo "<font color=#FF0000>Loggato come: " . $username. "</font>";
+      echo "<font color=#FF0000>" .$_SESSION['username']. "</font>";
 
 
-      $sql = "SELECT count(*) FROM pokemon"; // [4]
+
+
+      $sql = "SELECT count(*) FROM pokemon"; // [4] Query visualizza tutto dalla tabella pokemon
 
       $all_rows = getnumber($sql);  //[5]
       $all_pages = ceil($all_rows / $x_pag); //[6]
@@ -57,12 +65,16 @@
       $res = run($sql);
 
 
-      echo "<table class ='table table-dark'><tr><th>name</th><th>height</th><th>weight</th></tr>";
-      while($result = $res->fetch(PDO::FETCH_ASSOC))
+      echo "<table class ='table table-dark'><tr><th>details</th><th>name</th><th>height</th><th>weight</th></tr>";
+      while($result = $res->fetch())
       {
-        echo "<tr><td>" .$result['identifier']. "</td><td>" . $result['height']
-            ."</td><td>" .$result['weight'] . "</td>";
+        echo "<tr> <td> <a href=\"pokedetails.php?idPoke=" .$result[0]. "\"> Details </a> </td>";
+
+        echo "<td>" .$result['identifier']. "</td><td>" . $result['height']
+            ."</td><td>" .$result['weight'] . "</td></tr>";
+
       }
+
       echo "</table>";
 
 
@@ -87,7 +99,6 @@
       }
   ?>
   <br>
-  <br>
 
   <style>
   a:link, a:visited
@@ -107,7 +118,5 @@
   }
   </style>
   </head>
-
-<a href="index.html" target="_blank">Homepage</a>
 
 </body>

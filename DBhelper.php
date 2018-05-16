@@ -47,7 +47,27 @@ function getnumber($query)
   $sth = $conn->prepare($query);
   $sth->execute();
 
-  return $sth->fetchColumn();
+  return $sth->fetch()[0];
 }
 
+function runQuery($query)
+{
+  $result =  mysql_query($query) or die ("Error in query: $query " . mysql_error());
+  return $rowcount;
+}
+
+function runRows($query)
+{
+  $result =  mysql_query($query);
+  $rowcount =  mysql_num_rows($result) or die (mysql_error());
+  return $rowcount;
+}
+
+function logout()
+{
+  session_start();
+  session_destroy();
+  header("location:index.html");
+  exit;
+}
   ?>
