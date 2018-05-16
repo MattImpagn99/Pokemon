@@ -48,9 +48,10 @@
       echo "<table class ='table table-dark'><tr><th>details</th><th>name</th><th>height</th><th>weight</th></tr>";
       while($result = $res->fetch(PDO::FETCH_ASSOC))
       {
+echo "<tr> <td> <a href=\"pokedetails.php?idPoke=" .$result['id']. "\"> Details </a> </td>";
 
-        echo "<tr><td>" .$result['identifier']. "</td><td>" . $result['height']
-            ."</td><td>" .$result['weight'] . "</td>";
+        echo "<td>" .$result['identifier']. "</td><td>" . $result['height']
+            ."</td><td>" .$result['weight'] . "</td></tr>";
       }
       echo "</table>";
 
